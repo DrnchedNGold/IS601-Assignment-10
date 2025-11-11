@@ -46,6 +46,11 @@ class User(Base):
         """Hash a password using bcrypt."""
         return pwd_context.hash(password)
 
+    @staticmethod
+    def verify_password_static(plain_password: str, hashed_password: str) -> bool:
+        """Verify a plain password against a hashed password (static)."""
+        return pwd_context.verify(plain_password, hashed_password)
+
     def verify_password(self, plain_password: str) -> bool:
         """Verify a plain password against the hashed password."""
         return pwd_context.verify(plain_password, self.password)

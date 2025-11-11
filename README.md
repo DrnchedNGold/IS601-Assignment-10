@@ -196,6 +196,13 @@ docker run -it --rm <image-name>
 
 ---
 
+# 🔒 Password Security
+
+Passwords are securely hashed using bcrypt via [passlib](https://passlib.readthedocs.io/en/stable/).  
+- Raw passwords are never stored in the database.
+- Hashing and verification are handled in `app/models/user.py`.
+- Unit tests for password hashing are in `tests/unit/test_password_hashing.py`.
+
 # 🚀 6. Running the Project
 
 - **Without Docker**:
