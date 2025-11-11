@@ -1,5 +1,7 @@
 # 📦 Project Setup
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/varuns03/is601-assignment-10)](https://hub.docker.com/r/varuns03/is601-assignment-10)
+
 ---
 
 # 🧩 1. Install Homebrew (Mac Only)
@@ -216,8 +218,68 @@ python main.py
 - **With Docker**:
 
 ```bash
-docker run -it --rm <image-name>
+docker run -it --rm varuns03/is601-assignment-10
 ```
+
+---
+
+## Example Output
+
+After running, the generated QR code will be saved to the `output/` directory as `qr_code.png`.
+
+---
+
+## Example REPL Commands
+
+```python
+# In interactive shell
+from app.operations import qr
+qr.generate("https://example.com", filename="output/qr_code.png")
+```
+
+---
+
+# ⚙️ .env Configuration
+
+Create a `.env` file in the project root to customize behavior:
+
+```ini
+LOG_DIR=logs/
+HISTORY_DIR=history/
+PRECISION=4
+AUTOSAVE=True
+```
+
+- `LOG_DIR`: Directory for log files
+- `HISTORY_DIR`: Directory for history files
+- `PRECISION`: Calculation precision (int)
+- `AUTOSAVE`: Enable autosave (True/False)
+
+---
+
+# 🧪 Testing & Docker Hub
+
+## Run All Tests Locally
+
+```bash
+pytest
+```
+
+## Run Unit Tests Only
+
+```bash
+pytest tests/unit/
+```
+
+## Run Integration Tests Only
+
+```bash
+pytest tests/integration/
+```
+
+## Docker Hub Repository
+
+- [Docker Hub: varuns03/is601-assignment-10](https://hub.docker.com/r/varuns03/is601-assignment-10)
 
 ---
 
