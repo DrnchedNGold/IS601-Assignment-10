@@ -279,11 +279,11 @@ pytest tests/integration/
 
 ## Docker Hub Repository
 
-- [Docker Hub: varuns03/is601-assignment-10](https://hub.docker.com/r/varuns03/is601-assignment-10)
+- [Docker Hub: varuns03/is601-assignment-10](https://hub.docker.com/r/varuns03/is601-assignment-10/tags)
 
 ---
 
-# 📝 7. Submission Instructions
+#  7. Submission Instructions
 
 After finishing your work:
 
@@ -294,6 +294,12 @@ git push origin main
 ```
 
 Then submit the GitHub repository link as instructed.
+
+---
+
+# 📹 Submission Video
+
+[Submission Video Link](https://drive.google.com/file/d/1PBF1PXJexZ1ZSLDuAIY04T-36ohAEOPw/view?usp=sharing)
 
 ---
 
