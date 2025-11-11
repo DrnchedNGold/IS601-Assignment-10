@@ -110,7 +110,7 @@ class User(Base):
             return new_user
             
         except ValidationError as e:
-            raise ValueError(str(e)) # pragma: no cover
+            raise ValueError(str(e))
         except ValueError as e:
             raise e
 
@@ -122,7 +122,7 @@ class User(Base):
         ).first()
 
         if not user or not user.verify_password(password):
-            return None # pragma: no cover
+            return None
 
         user.last_login = datetime.utcnow()
         db.commit()
