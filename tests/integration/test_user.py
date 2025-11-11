@@ -325,6 +325,72 @@ def test_user_persistence_after_constraint(db_session):
     assert found_user.email == "first@example.com", "Email should be unchanged"
     assert found_user.username == "firstuser", "Username should be unchanged"
 
+def test_invalid_email_format(db_session):
+    """Should fail to register user with invalid email format."""
+    user_data = {
+        "first_name": "Bad",
+        "last_name": "Email",
+        "email": "not-an-email",
+        "username": "bademailuser",
+        "password": "password123"
+    }
+    with pytest.raises(ValueError):
+        User.register(db_session, user_data)
+
+def test_short_password(db_session):
+    """Should fail to register user with password too short."""
+    user_data = {
+        "first_name": "Short",
+        "last_name": "Password",
+        "email": "shortpw@example.com",
+        "username": "shortpwuser",
+        "password": "123"
+    }
+    with pytest.raises(ValueError):
+        User.register(db_session, user_data)
+
+def test_update_to_duplicate_email(db_session):
+    """Should fail to update user to duplicate email."""
+    user1 = User(
+        first_name="A",
+        last_name="B",
+        email="dup1@example.com",
+        username="dupuser1",
+        password="password123"
+    )
+    user2 = User(
+        first_name="C",
+        last_name="D",
+        email="dup2@example.com",
+        username="dupuser2",
+        password="password456"
+    )
+    db_session.add(user1)
+    db_session.add(user2)
+    db_session.commit()
+    user2.email = "dup1@example.com"
+    with pytest.raises(IntegrityError):
+        db_session.commit()
+    db_session.rollback()
+
+def test_delete_user_and_persistence(db_session):
+    """Delete a user and verify they are removed."""
+    user_data = {
+        "first_name": "Del",
+        "last_name": "User",
+        "email": "deluser@example.com",
+        "username": "deluser",
+        "password": "password123"
+    }
+    user = User(**user_data)
+    db_session.add(user)
+    db_session.commit()
+    user_id = user.id
+    db_session.delete(user)
+    db_session.commit()
+    found = db_session.query(User).filter_by(id=user_id).first()
+    assert found is None, "User should be deleted"
+
 # ======================================================================================
 # Error Handling Test
 # ======================================================================================
@@ -337,4 +403,3 @@ def test_error_handling():
         with managed_db_session() as session:
             session.execute(text("INVALID SQL"))
     assert "INVALID SQL" in str(exc_info.value)
-
